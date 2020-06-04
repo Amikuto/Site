@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block app_content %}
+    <head>
+        <meta charset="UTF-8">
+        <link href="{{ url_for("static", filename="css/styles.css") }}" rel="stylesheet">
+    </head>
+    <body>
+        <h1 class="headline">Личный кабинет</h1>
+        <div class="main">
+            <p><img src="{{ user_data.avatar(128) }}"></p>
+            <p class="lead">Имя пользователя: {{ user_data.username }}</p>
+            <p class="lead">Email: {{ user_data.email }}</p>
+            <p class="lead">Купленные билеты: </p>
+            {% for i in user_data.tickets %}
+                <p class="tickets lead">{{ i }}</p>
+            {% endfor %}
+            <a class="button" href="{{ url_for('edit_profile') }}">Изменть данные</a>
+        </div>
+    </body>
+{% endblock %}

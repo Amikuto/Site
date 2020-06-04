@@ -1,0 +1,73 @@
+{% extends 'bootstrap/base.html' %}
+
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            {% block title %}
+                {% if title %}
+                    {{ title }} - Частные железные дороги
+                    {% else %}
+                    Покупка билетов онлайн
+                {% endif %}
+            {% endblock %}
+        </title>
+    </head>
+
+    <body>
+        {% block navbar %}
+            <nav class="navbar navbar-default" style="background-image: url(/static/logo1.png);background-repeat: no-repeat; background-size: 175px"><a class="navbar-brand" href="{{ url_for('index') }}" style="width: 180px"></a>
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="{{ url_for('index') }}">Частные железные дороги</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li><a href="{{ url_for('tickets') }}">Купить билеты</a></li>
+                        </ul>
+                        {% set x = current_user.get_id() %}
+                        {% if x == '4' or x == '5' %}
+                            <ul class="nav navbar-nav navbar-center">
+                                <li><a href="{{ url_for('add_trains') }}">Добавление рейсов</a></li>
+                                <li><a href="{{ url_for('add_tickets') }}">Добавление билетов</a></li>
+                                <li><a href="{{ url_for('delete_trains') }}">Удаление рейсов</a></li>
+                            </ul>
+                        {% endif %}
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if current_user.is_anonymous %}
+                                <li><a href="{{ url_for('login') }}">Вход</a></li>
+                            {% else %}
+                                <li style="right:10px" ><a href="{{ url_for('profile', username=current_user.username) }}">Здравствуйте, {{ current_user.username }}</a></li>
+                                <li><a href="{{ url_for('logout') }}">Выход</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        {% endblock %}
+
+        {% block content %}
+        <div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <h1 align="middle">{{ message }}</h1>
+                    {% endfor %}
+                <hr>
+                {% endif %}
+                {% endwith %}
+            <div class="container">
+                {% block app_content %}{% endblock %}
+            </div>
+        </div>
+
+        <hr>
+        <div id="footer" align="right" style="width: 99%">
+            {% block footer %}
+                Created by: <a href="https://vk.com/amikuto">Дамир</a>, <a href="https://vk.com/ironguy01">Михаил</a>, <a href="https://vk.com/a.khalilov2609">Артем</a>, <a href="https://vk.com/alex.parog">Александр</a>, <a href="https://vk.com/dave_marti">Давид</a>
+            {% endblock %}
+        </div>
+        {% endblock %}
+    </body>
+</html>

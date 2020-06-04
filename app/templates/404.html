@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <head>
+        <link href="{{ url_for("static", filename="css/styles.css") }}" rel="stylesheet">
+    </head>
+    <h1>Файл не найден</h1>
+    <p><a class="button" href="{{ url_for('index') }}">Вернуться на главную страницу</a></p>
+{% endblock %}

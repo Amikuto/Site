@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <body>
+        <table class="table table-bordered" style="width:95%; position:relative; left:50px">
+        <thead>
+            <tr>
+                <th scope="col" >Номер поезда</th>
+                <th scope="col">Город отправления</th>
+                <th scope="col">Город прибытия</th>
+                <th scope="col">Дата отправления</th>
+                <th scope="col">Время отправления</th>
+                <th scope="col">Дата прибытия</th>
+                <th scope="col">Время прибытия</th>
+                <th scope="col">Доступные билеты</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in data %}
+            {% if (i.city_dep == city_dep) and (i.city_arr == city_arr) and (i.date_dep == date)%}
+            <tr>
+                <th scope="row">{{ i.id }}</th>
+                <td>{{ i.city_dep }}</td>
+                <td>{{ i.city_arr }}</td>
+                <td>{{ i.date_dep }}</td>
+                <td>{{ i.time_dep }}</td>
+                <td>{{ i.date_arr }}</td>
+                <td>{{ i.time_arr }}</td>
+                <td>
+                    Общее количество билетов: {{ i.tickets.all()|length }}
+                    <p>
+                    Доступные билеты:
+                    {% for num in i.tickets.all() %}
+                        {% if not num.owner %}
+                            <p>
+                            Билет #{{ num.id }} по цене {{ num.cost }} руб
+                            </p>
+                        {% endif %}
+                    {% endfor %}
+                    </p>
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+        </table>
+
+    <div class="row" style="position:relative; left:50px; width: 90%">
+        <h1>Покупка:</h1>
+        <div class="col-md-4">
+            <form method="POST">
+            {{ wtf.quick_form(form) }}
+            </form>
+        </div>
+    </div>
+
+    </body>
+{% endblock %}
