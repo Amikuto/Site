@@ -7,5 +7,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\damir\microblog\app.db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="app [2]" uuid="a163dfaa-d78d-4fad-a822-e8cdf994e677">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:D:\Programming\trainflask\app.db</jdbc-url>
+    </data-source>
   </component>
 </project>
