@@ -11,6 +11,8 @@ from flask_login import UserMixin
 from app import login
 from hashlib import md5
 
+# TODO: вагоны, верхние \ нижние
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -32,7 +34,6 @@ class User(UserMixin, db.Model):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
             digest, size)
-
 
 
 class Ticket(db.Model):

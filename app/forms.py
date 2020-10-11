@@ -20,11 +20,11 @@ class LoginForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Имя пользователя', validators=[DataRequired()])
+    full_name = StringField('Ваши ФИО', validators=[DataRequired()])
+    username = StringField('Имя пользователя', validators=[DataRequired()])  # TODO: End full name (add to db etc)
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Пароль', validators=[DataRequired()])
-    password2 = PasswordField(
-        'Повторите пароль', validators=[DataRequired(), EqualTo('password')])
+    password2 = PasswordField('Повторите пароль', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Зарегестрироваться')
 
     def validate_username(self, username):

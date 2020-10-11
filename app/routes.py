@@ -169,7 +169,7 @@ def register():
 @app.route('/train_add', methods=['GET', 'POST'])
 def add_trains():
     form = TrainSetForm()
-    admin_list = [4, 5]
+    admin_list = [1]
     if int(current_user.get_id()) in admin_list:
         if form.validate_on_submit():
             data = Train(time_arr=form.time_arr.data, time_dep=form.time_dep.data, city_arr=form.city_arr.data,
@@ -185,7 +185,7 @@ def add_trains():
 @app.route('/train_delete', methods=['GET', 'POST'])
 def delete_trains():
     form = TrainDeleteForm()
-    admin_list = [4, 5]
+    admin_list = [1]
     if int(current_user.get_id()) in admin_list:
         if form.validate_on_submit():
             data = Train.query.filter_by(id=form.id.data).first()
@@ -195,13 +195,13 @@ def delete_trains():
             db.session.delete(data)
             db.session.commit()
             return redirect(url_for('delete_trains'))
-    return render_template('admin_panel_delete.html', title='Новый маршрут', form=form)
+    return render_template('admin_panel_delete.html', title='Удаление маршрута', form=form)
 
 
 @app.route('/ticket_add', methods=['GET', 'POST'])
 def add_tickets():
     form = TicketSetForm()
-    admin_list = [1, 4]
+    admin_list = [1]
     if int(current_user.get_id()) in admin_list:
         if form.validate_on_submit():
             if Train.query.get(form.train_number.data):
@@ -214,7 +214,7 @@ def add_tickets():
                 return redirect(url_for('add_tickets'))
     else:
         return redirect(url_for('tickets'))
-    return render_template('admin_panel_ticket.html', title='Новый маршрут', form=form)
+    return render_template('admin_panel_ticket.html', title='Добавление билетов', form=form)
 
 
 @app.route('/404', methods=['GET', 'POST'])
